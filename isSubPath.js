@@ -18,8 +18,15 @@
 // Output: false
 // Explanation: There is no path in the binary tree that contains all the elements of the linked list from head.
 
+const dfs = (head, node) => {  
+    if(!head) return true;
+    if(!node) return false;
+    if(head.val !== node.val) return false;
+    return dfs(head.next, node.left) || dfs(head.next, node.right);
+};
+
 var isSubPath = function(head, root) {
-    
+    if()
 };
 
 console.log(isSubPath([4,2,8], [1,4,4,null,2,2,null,1,null,6,8,null,null,null,null,1,3]));// true

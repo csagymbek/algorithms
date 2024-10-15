@@ -38,8 +38,8 @@ const printDiagonal = (matrix) => {
     console.log("diagonals", diagonals);
     for(let i = 0; i < rows; i++) {
         for(let j = 0; j < cols; j++) {
-            console.log(matrix[i][j]);
             console.log(i + j);
+            console.log(matrix[i][j]);
             diagonals[i + j].push(matrix[i][j]);
         }
     }
@@ -47,5 +47,5 @@ const printDiagonal = (matrix) => {
     return diagonals;
 };
 
-console.log(printDiagonal([[9, 3, 2], [8, 6, 1], [5, 5, 6], [1, 2, 8]]));// 
+// console.log(printDiagonal([[9, 3, 2], [8, 6, 1], [5, 5, 6], [1, 2, 8]]));// 
 console.log(printDiagonal([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]]));// 1 2 5 3 6 9 4 7 10 8 11 12
