@@ -28,23 +28,29 @@
 // 8 11
 // 12
 
+const flattenArray = (array) => {  
+    if(!Array.isArray(array)) {
+        return [array];
+    }
+    console.log(array);
+    let newArray = [];
+    for(let i = 0; i < array.length; i++) {
+        newArray = newArray.concat(flattenArray(array[i]));
+    }
+    return newArray;
+};
+
 const printDiagonal = (matrix) => {  
-    if(!matrix.length) return [];
     const rows = matrix.length;
     const cols = matrix[0].length;
     const diagonals = new Array(rows + cols - 1).fill(null).map(() => []);
-    console.log(rows);
-    console.log(cols);
-    console.log("diagonals", diagonals);
     for(let i = 0; i < rows; i++) {
         for(let j = 0; j < cols; j++) {
-            console.log(i + j);
-            console.log(matrix[i][j]);
             diagonals[i + j].push(matrix[i][j]);
         }
     }
     console.log(diagonals);
-    return diagonals;
+    return flattenArray(diagonals);
 };
 
 // console.log(printDiagonal([[9, 3, 2], [8, 6, 1], [5, 5, 6], [1, 2, 8]]));// 
