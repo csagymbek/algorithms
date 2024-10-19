@@ -28,24 +28,46 @@ var orangesRotting = function(grid) {
     let fresh = 0;
     const rows = grid.length;
     const cols = grid[0].length;
-    for(let i = 0; i < rows; i++) {
-        for(let j = 0; j < cols; j++) {
-            if(grid[i][j] === 1) {
+
+    // Initialize the queue with all rotten oranges and count fresh oranges
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+            if (grid[i][j] === 1) {
                 fresh++;
             }
-            if(grid[i][j] === 2) {
+            if (grid[i][j] === 2) {
                 queue.push([i, j]);
             }
         }
     }
-    console.log(fresh);
-    console.log(queue);
-    // while(queue.length && fresh) {
-    //     // for(let i = 0; i < queue.length; i++) {
-            
-    //     // }
-    // }
-    return -1;
+
+    const directions = [[0, 1], [1, 0], [0, -1], [-1, 0]];
+
+    // Perform BFS to rot adjacent fresh oranges minute by minute
+    while (queue.length && fresh) {
+        let size = queue.length; // Process only the current batch
+        for (let i = 0; i < size; i++) {
+            const [r, c] = queue.shift();
+            for (const [dr, dc] of directions) {
+                const newRow = r + dr;
+                const newCol = c + dc;
+                // Check if the new cell is a valid fresh orange
+                if (
+                    newRow >= 0 && newRow < rows &&
+                    newCol >= 0 && newCol < cols &&
+                    grid[newRow][newCol] === 1
+                ) {
+                    grid[newRow][newCol] = 2;
+                    queue.push([newRow, newCol]);
+                    fresh--;
+                }
+            }
+        }
+        time++; // Increment the minute after processing the batch
+    }
+
+    // If there are still fresh oranges left, return -1
+    return fresh ? -1 : time;
 };
 
 console.log(orangesRotting([[2,1,1],[1,1,0],[0,1,1]]));// 4
